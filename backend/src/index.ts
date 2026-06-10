@@ -7,9 +7,6 @@ import rateLimit from 'express-rate-limit';
 import path from 'path';
 import dotenv from 'dotenv';
 
-// Import Services
-import { socketService } from './services/socket.service';
-
 // Import Routes
 import authRoutes from './routes/auth.routes';
 import productRoutes from './routes/product.routes';
@@ -22,11 +19,7 @@ import aiRoutes from './routes/ai.routes';
 dotenv.config();
 
 const app = express();
-const server = http.createServer(app);
 const PORT = process.env.PORT || 5000;
-
-// Initialize WebSockets
-socketService.initialize(server);
 
 // ==========================================
 // MIDDLEWARES
@@ -35,17 +28,30 @@ socketService.initialize(server);
 // Security Headers
 app.use(
   helmet({
-    crossOriginResourcePolicy: false, // Allows loading local uploaded product images
+    crossOriginResourcePolicy: false,
   })
 );
 
 // Logging
 app.use(morgan('dev'));
 
-// CORS configuration
+// CORS configuration — allow Vercel frontend domain + localhost
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:5173',
+  'https://next-gen-sneakers.vercel.app',
+  /\.vercel\.app$/,
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const allowed =
+        allowedOrigins.some((o) =>
+          typeof o === 'string' ? o === origin : o.test(origin)
+        );
+      callback(null, allowed);
+    },
     credentials: true,
   })
 );
@@ -54,7 +60,7 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Custom Light Cookie Parser Middleware (removes cookie-parser dependency)
+// Custom Light Cookie Parser Middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
   const cookieHeader = req.headers.cookie;
   (req as any).cookies = {};
@@ -75,8 +81,8 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads')
 // Rate Limiter
 if (process.env.NODE_ENV === 'production') {
   const generalRateLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: { message: 'Too many requests from this IP, please try again later.' },
     standardHeaders: true,
     legacyHeaders: false,
@@ -84,7 +90,7 @@ if (process.env.NODE_ENV === 'production') {
 
   const authRateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 30, // Limit login/register actions
+    max: 30,
     message: { message: 'Brute-force limit hit. Try again in 15 minutes.' },
     standardHeaders: true,
     legacyHeaders: false,
@@ -110,6 +116,9 @@ app.use('/api/ai', aiRoutes);
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'healthy', timestamp: new Date() });
 });
+app.get('/api/health', (req: Request, res: Response) => {
+  res.status(200).json({ status: 'healthy', timestamp: new Date() });
+});
 
 // ==========================================
 // ERROR HANDLING
@@ -126,7 +135,21 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// Start Server
-server.listen(PORT, () => {
-  console.log(`[SERVER RUNNING] Mode: ${process.env.NODE_ENV}. Listening on Port: ${PORT}`);
-});
+// ==========================================
+// SERVER START (local dev only — Vercel handles its own listener)
+// ==========================================
+if (process.env.NODE_ENV !== 'production') {
+  const server = http.createServer(app);
+
+  // Only import socket service in local mode (WebSockets not supported on Vercel)
+  import('./services/socket.service').then(({ socketService }) => {
+    socketService.initialize(server);
+  });
+
+  server.listen(PORT, () => {
+    console.log(`[SERVER RUNNING] Mode: ${process.env.NODE_ENV}. Listening on Port: ${PORT}`);
+  });
+}
+
+// Export app for Vercel serverless handler
+export default app;
