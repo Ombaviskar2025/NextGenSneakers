@@ -140,6 +140,12 @@ const HeroShoeViewer: React.FC<HeroShoeViewerProps> = ({ modelId, title }) => {
 
 const SHOE_MODELS = [
   {
+    id: '0f9cd6cc050b499b8109a7277523e8f2',
+    name: 'Jordan 4',
+    line1: 'MOVE FASTER',
+    line2: 'THAN TOMORROW',
+  },
+  {
     id: 'cd636a0c88c34ded9db4b105c6d32111',
     name: 'AJ1 Chicago',
     line1: 'THE LEGEND',
@@ -168,12 +174,6 @@ const SHOE_MODELS = [
     name: 'AirForce',
     line1: 'ELEVATE YOUR',
     line2: 'STRIDE',
-  },
-  {
-    id: 'ab3f0008870f4469a911e1878929d1fd',
-    name: 'Air Jordan 4',
-    line1: 'MOVE FASTER',
-    line2: 'THAN TOMORROW',
   }
 ];
 
