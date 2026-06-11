@@ -210,21 +210,7 @@ export const Home: React.FC = () => {
               <HeroShoeViewer />
             </div>
 
-            {/* Button Actions */}
-            <div className="flex flex-col sm:flex-row gap-6 mt-4">
-              <Link
-                to="/products"
-                className="bg-pulse-red text-white px-10 py-4.5 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(255,59,48,0.3)]"
-              >
-                Shop Collection
-              </Link>
-              <Link
-                to="/apply-vendor"
-                className="glass-btn text-white px-10 py-4.5 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
-              >
-                Become a Seller
-              </Link>
-            </div>
+
 
           </div>
         </div>
