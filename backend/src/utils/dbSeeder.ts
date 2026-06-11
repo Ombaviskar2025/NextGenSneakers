@@ -2,11 +2,11 @@ import { db } from '../config/db';
 
 export async function seedDatabase() {
   try {
-    // 1. Check if the new sneaker products already exist
-    const checkProd = await db.query("SELECT count(*) FROM products WHERE id = 'p-nike-jordan4'");
+    // 1. Check if the latest sneaker products already exist
+    const checkProd = await db.query("SELECT count(*) FROM products WHERE id = 'p-nike-gpchallenge'");
     const count = parseInt(checkProd.rows[0].count, 10);
     if (count > 0) {
-      console.log('[DB AUTOSEED] Sneaker products already exist. Skipping seeding.');
+      console.log('[DB AUTOSEED] All sneaker products already exist. Skipping seeding.');
       return;
     }
 
@@ -229,6 +229,202 @@ export async function seedDatabase() {
         is_featured: true,
         image_url: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600',
         stock: 12
+      },
+      // ─── NEW SHOES ────────────────────────────────────────
+      {
+        id: 'p-nike-blazer77',
+        cat_id: 'cat-lifestyle',
+        name: "Nike Blazer Mid '77 Vintage",
+        slug: 'nike-blazer-mid-77-vintage',
+        desc: "In the '70s, Nike was the new shoe on the block. So new that the first Blazer was drawn on a napkin and hoped to gain the approval of athletes. Clean, crisp and classic, this mid-top has a timeless design with premium suede and vintage stitching.",
+        price: 7995.00,
+        compare_at: 9495.00,
+        sku: 'NK-BLZR-77-WHT',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=600',
+        stock: 32
+      },
+      {
+        id: 'p-nike-am97',
+        cat_id: 'cat-lifestyle',
+        name: 'Nike Air Max 97',
+        slug: 'nike-air-max-97',
+        desc: "Push your style full speed ahead with the Nike Air Max 97. Its full-length Nike Air unit pairs with a sleek, bullet-inspired design, representing a revolutionary chapter in Air Max history with reflective 3M detailing.",
+        price: 12995.00,
+        compare_at: 15995.00,
+        sku: 'NK-AM97-SLV',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600',
+        stock: 22
+      },
+      {
+        id: 'p-nike-huarache',
+        cat_id: 'cat-lifestyle',
+        name: 'Nike Air Huarache',
+        slug: 'nike-air-huarache',
+        desc: "Born from the creative mind of Tinker Hatfield, the Nike Air Huarache changed the sneaker game with its neoprene inner sleeve for a sock-like fit. This icon remains a streetwear essential with bold colorways and unmatched comfort.",
+        price: 8695.00,
+        compare_at: 10995.00,
+        sku: 'NK-HUARACHE-WHT',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600',
+        stock: 28
+      },
+      {
+        id: 'p-nike-sbdunk',
+        cat_id: 'cat-lifestyle',
+        name: 'Nike SB Dunk Low Pro',
+        slug: 'nike-sb-dunk-low-pro',
+        desc: "The Nike SB Dunk Low Pro takes the iconic basketball silhouette and reworks it for skateboarding with Zoom Air cushioning in the insole. Padded collar, grippy sole and premium suede upper deliver skate-ready durability and board feel.",
+        price: 9295.00,
+        compare_at: 11495.00,
+        sku: 'NK-SB-DUNK-LP-BLK',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=600',
+        stock: 14
+      },
+      {
+        id: 'p-nike-reactinfinity',
+        cat_id: 'cat-running',
+        name: 'Nike React Infinity Run 3',
+        slug: 'nike-react-infinity-run-3',
+        desc: "Designed to help reduce injury and keep you on the run, the React Infinity Run 3 offers a wider forefoot, higher foam heights, and a rocker geometry to deliver cushioned comfort and a smooth transition during your run.",
+        price: 11495.00,
+        compare_at: 13995.00,
+        sku: 'NK-REACT-INF3-BLU',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=600',
+        stock: 35
+      },
+      {
+        id: 'p-nike-invincible3',
+        cat_id: 'cat-running',
+        name: 'Nike ZoomX Invincible Run 3',
+        slug: 'nike-zoomx-invincible-run-3',
+        desc: "Maximum cushioning, maximum energy return. The Invincible 3 offers the most ZoomX foam ever in a Nike running shoe for a soft, bouncy ride on your everyday runs. Flyknit upper provides breathable containment.",
+        price: 14995.00,
+        compare_at: 16995.00,
+        sku: 'NK-INVINC-3-ORG',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1562183241-b937e95585b6?w=600',
+        stock: 19
+      },
+      {
+        id: 'p-nike-alphafly3',
+        cat_id: 'cat-running',
+        name: 'Nike Air Zoom Alphafly 3',
+        slug: 'nike-air-zoom-alphafly-3',
+        desc: "The latest evolution of Nike's marathon racing super shoe. The Alphafly 3 combines ZoomX foam, a full-length carbon-fibre plate, and dual Air Zoom units to deliver unprecedented energy return for record-breaking performance.",
+        price: 24995.00,
+        compare_at: 27995.00,
+        sku: 'NK-ALPHAFLY-3-GRN',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600',
+        stock: 10
+      },
+      {
+        id: 'p-nike-kd16',
+        cat_id: 'cat-basketball',
+        name: 'Nike KD 16',
+        slug: 'nike-kd-16',
+        desc: "Kevin Durant's signature shoe returns with a full-length Air Zoom Strobel unit for an ultra-responsive court feel. Low-profile with a lightweight knit upper, the KD 16 keeps you locked in during quick cuts.",
+        price: 13995.00,
+        compare_at: 15995.00,
+        sku: 'NK-KD16-BLK',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600',
+        stock: 16
+      },
+      {
+        id: 'p-nike-kyrielow5',
+        cat_id: 'cat-basketball',
+        name: 'Kyrie Low 5',
+        slug: 'kyrie-low-5',
+        desc: "Designed for Kyrie Irving's shifty style of play, the Low 5 features a curved outsole for multi-directional traction, Nike Air cushioning for impact protection, and a lightweight upper for unmatched agility on the court.",
+        price: 10495.00,
+        compare_at: 12495.00,
+        sku: 'NK-KYRIE-L5-BLU',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=600',
+        stock: 22
+      },
+      {
+        id: 'p-nike-aj11',
+        cat_id: 'cat-basketball',
+        name: 'Air Jordan 11 Retro Cool Grey',
+        slug: 'air-jordan-11-retro-cool-grey',
+        desc: "The Air Jordan 11 is one of the most beloved sneakers of all time. The Cool Grey edition features premium leather and ballistic mesh upper with the iconic patent leather mudguard and a full-length Air-Sole unit for responsive cushioning.",
+        price: 19995.00,
+        compare_at: 22995.00,
+        sku: 'AJ-11-RET-CG',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600',
+        stock: 11
+      },
+      {
+        id: 'p-nike-ja1',
+        cat_id: 'cat-basketball',
+        name: "Nike Ja 1 'Scratch'",
+        slug: 'nike-ja-1-scratch',
+        desc: "Ja Morant's debut signature shoe is built for explosive guards. The Ja 1 features a lightweight cushioning system, herringbone outsole for court-gripping traction, and a playful design that reflects Ja's high-flying energy.",
+        price: 9995.00,
+        compare_at: 11995.00,
+        sku: 'NK-JA1-SCRATCH',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=600',
+        stock: 30
+      },
+      {
+        id: 'p-nike-freemetcon5',
+        cat_id: 'cat-training',
+        name: 'Nike Free Metcon 5',
+        slug: 'nike-free-metcon-5',
+        desc: "The Nike Free Metcon 5 combines the flexibility of Nike Free with the stability of Metcon. Its split design gives you a flexible forefoot for agility exercises while the flat, stable heel supports heavy lifting.",
+        price: 9295.00,
+        compare_at: 10995.00,
+        sku: 'NK-FREEMET-5-GRY',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600',
+        stock: 27
+      },
+      {
+        id: 'p-nike-superrep3',
+        cat_id: 'cat-training',
+        name: 'Nike SuperRep Go 3 Flyknit',
+        slug: 'nike-superrep-go-3-flyknit',
+        desc: "An ultra-lightweight training shoe designed for HIIT and circuit sessions. Breathable Flyknit wraps your foot, while the curved outsole eases transitions between exercises for a smooth, multi-movement workout.",
+        price: 7695.00,
+        compare_at: 8995.00,
+        sku: 'NK-SUPERREP-3-PNK',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=600',
+        stock: 33
+      },
+      {
+        id: 'p-nike-courtlite4',
+        cat_id: 'cat-tennis',
+        name: 'Nike Court Lite 4',
+        slug: 'nike-court-lite-4',
+        desc: "A versatile, lightweight tennis shoe that brings cushioned comfort and durable traction to the court. The Court Lite 4 features a mesh upper for breathability, reinforced toe cap, and a herringbone outsole for superior grip.",
+        price: 5495.00,
+        compare_at: 6995.00,
+        sku: 'NK-CRT-LT4-WHT',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600',
+        stock: 40
+      },
+      {
+        id: 'p-nike-gpchallenge',
+        cat_id: 'cat-tennis',
+        name: 'Nike GP Challenge Pro',
+        slug: 'nike-gp-challenge-pro',
+        desc: "Step onto the court with pro-level performance. The GP Challenge Pro offers a supportive fit with a cushioned Zoom Air unit in the heel, durable herringbone traction pattern, and a sleek low-top design built for aggressive baseline play.",
+        price: 9995.00,
+        compare_at: 11995.00,
+        sku: 'NK-GP-CHALL-PRO',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=600',
+        stock: 17
       }
     ];
 

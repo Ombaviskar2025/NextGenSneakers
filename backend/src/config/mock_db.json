@@ -541,6 +541,456 @@
           "is_featured": true
         }
       ]
+    },
+    {
+      "id": "p-nike-blazer77",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-lifestyle",
+      "name": "Nike Blazer Mid '77 Vintage",
+      "slug": "nike-blazer-mid-77-vintage",
+      "description": "In the '70s, Nike was the new shoe on the block. So new that the first Blazer was drawn on a napkin and hoped to gain the approval of athletes. Clean, crisp and classic, this mid-top has a timeless design with premium suede and vintage stitching.",
+      "price": 7995,
+      "compare_at_price": 9495,
+      "sku": "NK-BLZR-77-WHT",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T10:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Lifestyle",
+      "stock_quantity": 32,
+      "low_stock_threshold": 5,
+      "rating": 4.7,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=600",
+      "images": [
+        {
+          "id": "img-blazer77-1",
+          "image_url": "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-am97",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-lifestyle",
+      "name": "Nike Air Max 97",
+      "slug": "nike-air-max-97",
+      "description": "Push your style full speed ahead with the Nike Air Max 97. Its full-length Nike Air unit pairs with a sleek, bullet-inspired design, representing a revolutionary chapter in Air Max history with reflective 3M detailing.",
+      "price": 12995,
+      "compare_at_price": 15995,
+      "sku": "NK-AM97-SLV",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T11:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Lifestyle",
+      "stock_quantity": 22,
+      "low_stock_threshold": 4,
+      "rating": 4.8,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600",
+      "images": [
+        {
+          "id": "img-am97-1",
+          "image_url": "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-huarache",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-lifestyle",
+      "name": "Nike Air Huarache",
+      "slug": "nike-air-huarache",
+      "description": "Born from the creative mind of Tinker Hatfield, the Nike Air Huarache changed the sneaker game with its neoprene inner sleeve for a sock-like fit. This icon remains a streetwear essential with bold colorways and unmatched comfort.",
+      "price": 8695,
+      "compare_at_price": 10995,
+      "sku": "NK-HUARACHE-WHT",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-12T12:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Lifestyle",
+      "stock_quantity": 28,
+      "low_stock_threshold": 4,
+      "rating": 4.5,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600",
+      "images": [
+        {
+          "id": "img-huarache-1",
+          "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-sbdunk",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-lifestyle",
+      "name": "Nike SB Dunk Low Pro",
+      "slug": "nike-sb-dunk-low-pro",
+      "description": "The Nike SB Dunk Low Pro takes the iconic basketball silhouette and reworks it for skateboarding with Zoom Air cushioning in the insole. Padded collar, grippy sole and premium suede upper deliver skate-ready durability and board feel.",
+      "price": 9295,
+      "compare_at_price": 11495,
+      "sku": "NK-SB-DUNK-LP-BLK",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T13:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Lifestyle",
+      "stock_quantity": 14,
+      "low_stock_threshold": 3,
+      "rating": 4.9,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=600",
+      "images": [
+        {
+          "id": "img-sbdunk-1",
+          "image_url": "https://images.unsplash.com/photo-1579338559194-a162d19bf842?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-reactinfinity",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-running",
+      "name": "Nike React Infinity Run 3",
+      "slug": "nike-react-infinity-run-3",
+      "description": "Designed to help reduce injury and keep you on the run, the React Infinity Run 3 offers a wider forefoot, higher foam heights, and a rocker geometry to deliver cushioned comfort and a smooth transition during your run.",
+      "price": 11495,
+      "compare_at_price": 13995,
+      "sku": "NK-REACT-INF3-BLU",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T14:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Running",
+      "stock_quantity": 35,
+      "low_stock_threshold": 5,
+      "rating": 4.6,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=600",
+      "images": [
+        {
+          "id": "img-reactinfinity-1",
+          "image_url": "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-invincible3",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-running",
+      "name": "Nike ZoomX Invincible Run 3",
+      "slug": "nike-zoomx-invincible-run-3",
+      "description": "Maximum cushioning, maximum energy return. The Invincible 3 offers the most ZoomX foam ever in a Nike running shoe for a soft, bouncy ride on your everyday runs. Flyknit upper provides breathable containment.",
+      "price": 14995,
+      "compare_at_price": 16995,
+      "sku": "NK-INVINC-3-ORG",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T15:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Running",
+      "stock_quantity": 19,
+      "low_stock_threshold": 3,
+      "rating": 4.7,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1562183241-b937e95585b6?w=600",
+      "images": [
+        {
+          "id": "img-invincible3-1",
+          "image_url": "https://images.unsplash.com/photo-1562183241-b937e95585b6?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-alphafly3",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-running",
+      "name": "Nike Air Zoom Alphafly 3",
+      "slug": "nike-air-zoom-alphafly-3",
+      "description": "The latest evolution of Nike's marathon racing super shoe. The Alphafly 3 combines ZoomX foam, a full-length carbon-fibre plate, and dual Air Zoom units to deliver unprecedented energy return for record-breaking performance.",
+      "price": 24995,
+      "compare_at_price": 27995,
+      "sku": "NK-ALPHAFLY-3-GRN",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T16:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Running",
+      "stock_quantity": 10,
+      "low_stock_threshold": 2,
+      "rating": 4.9,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600",
+      "images": [
+        {
+          "id": "img-alphafly3-1",
+          "image_url": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-kd16",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-basketball",
+      "name": "Nike KD 16",
+      "slug": "nike-kd-16",
+      "description": "Kevin Durant's signature shoe returns with a full-length Air Zoom Strobel unit for an ultra-responsive court feel. Low-profile with a lightweight knit upper, the KD 16 keeps you locked in during quick cuts.",
+      "price": 13995,
+      "compare_at_price": 15995,
+      "sku": "NK-KD16-BLK",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-12T17:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Basketball",
+      "stock_quantity": 16,
+      "low_stock_threshold": 3,
+      "rating": 4.6,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600",
+      "images": [
+        {
+          "id": "img-kd16-1",
+          "image_url": "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-kyrielow5",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-basketball",
+      "name": "Kyrie Low 5",
+      "slug": "kyrie-low-5",
+      "description": "Designed for Kyrie Irving's shifty style of play, the Low 5 features a curved outsole for multi-directional traction, Nike Air cushioning for impact protection, and a lightweight upper for unmatched agility on the court.",
+      "price": 10495,
+      "compare_at_price": 12495,
+      "sku": "NK-KYRIE-L5-BLU",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T18:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Basketball",
+      "stock_quantity": 22,
+      "low_stock_threshold": 4,
+      "rating": 4.7,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=600",
+      "images": [
+        {
+          "id": "img-kyrielow5-1",
+          "image_url": "https://images.unsplash.com/photo-1605348532760-6753d2c43329?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-aj11",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-basketball",
+      "name": "Air Jordan 11 Retro Cool Grey",
+      "slug": "air-jordan-11-retro-cool-grey",
+      "description": "The Air Jordan 11 is one of the most beloved sneakers of all time. The Cool Grey edition features premium leather and ballistic mesh upper with the iconic patent leather mudguard and a full-length Air-Sole unit for responsive cushioning.",
+      "price": 19995,
+      "compare_at_price": 22995,
+      "sku": "AJ-11-RET-CG",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T19:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Basketball",
+      "stock_quantity": 11,
+      "low_stock_threshold": 2,
+      "rating": 5.0,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600",
+      "images": [
+        {
+          "id": "img-aj11-1",
+          "image_url": "https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-ja1",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-basketball",
+      "name": "Nike Ja 1 'Scratch'",
+      "slug": "nike-ja-1-scratch",
+      "description": "Ja Morant's debut signature shoe is built for explosive guards. The Ja 1 features a lightweight cushioning system, herringbone outsole for court-gripping traction, and a playful design that reflects Ja's high-flying energy.",
+      "price": 9995,
+      "compare_at_price": 11995,
+      "sku": "NK-JA1-SCRATCH",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-12T20:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Basketball",
+      "stock_quantity": 30,
+      "low_stock_threshold": 5,
+      "rating": 4.5,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=600",
+      "images": [
+        {
+          "id": "img-ja1-1",
+          "image_url": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-freemetcon5",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-training",
+      "name": "Nike Free Metcon 5",
+      "slug": "nike-free-metcon-5",
+      "description": "The Nike Free Metcon 5 combines the flexibility of Nike Free with the stability of Metcon. Its split design gives you a flexible forefoot for agility exercises while the flat, stable heel supports heavy lifting.",
+      "price": 9295,
+      "compare_at_price": 10995,
+      "sku": "NK-FREEMET-5-GRY",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-12T21:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Training & Gym",
+      "stock_quantity": 27,
+      "low_stock_threshold": 4,
+      "rating": 4.6,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600",
+      "images": [
+        {
+          "id": "img-freemetcon5-1",
+          "image_url": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-superrep3",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-training",
+      "name": "Nike SuperRep Go 3 Flyknit",
+      "slug": "nike-superrep-go-3-flyknit",
+      "description": "An ultra-lightweight training shoe designed for HIIT and circuit sessions. Breathable Flyknit wraps your foot, while the curved outsole eases transitions between exercises for a smooth, multi-movement workout.",
+      "price": 7695,
+      "compare_at_price": 8995,
+      "sku": "NK-SUPERREP-3-PNK",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-12T22:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Training & Gym",
+      "stock_quantity": 33,
+      "low_stock_threshold": 5,
+      "rating": 4.4,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=600",
+      "images": [
+        {
+          "id": "img-superrep3-1",
+          "image_url": "https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-courtlite4",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-tennis",
+      "name": "Nike Court Lite 4",
+      "slug": "nike-court-lite-4",
+      "description": "A versatile, lightweight tennis shoe that brings cushioned comfort and durable traction to the court. The Court Lite 4 features a mesh upper for breathability, reinforced toe cap, and a herringbone outsole for superior grip.",
+      "price": 5495,
+      "compare_at_price": 6995,
+      "sku": "NK-CRT-LT4-WHT",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-12T23:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Tennis",
+      "stock_quantity": 40,
+      "low_stock_threshold": 5,
+      "rating": 4.3,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600",
+      "images": [
+        {
+          "id": "img-courtlite4-1",
+          "image_url": "https://images.unsplash.com/photo-1584735175315-9d5df23860e6?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-gpchallenge",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-tennis",
+      "name": "Nike GP Challenge Pro",
+      "slug": "nike-gp-challenge-pro",
+      "description": "Step onto the court with pro-level performance. The GP Challenge Pro offers a supportive fit with a cushioned Zoom Air unit in the heel, durable herringbone traction pattern, and a sleek low-top design built for aggressive baseline play.",
+      "price": 9995,
+      "compare_at_price": 11995,
+      "sku": "NK-GP-CHALL-PRO",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-13T10:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Tennis",
+      "stock_quantity": 17,
+      "low_stock_threshold": 3,
+      "rating": 4.7,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=600",
+      "images": [
+        {
+          "id": "img-gpchallenge-1",
+          "image_url": "https://images.unsplash.com/photo-1606890658317-7d14490b76fd?w=600",
+          "is_featured": true
+        }
+      ]
     }
   ],
   "reviews": [
