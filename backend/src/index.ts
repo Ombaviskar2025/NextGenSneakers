@@ -18,6 +18,12 @@ import aiRoutes from './routes/ai.routes';
 
 dotenv.config();
 
+// Auto-seed database if sneaker categories are missing (e.g. in live environment)
+import { seedDatabase } from './utils/dbSeeder';
+seedDatabase().catch((err) => {
+  console.error('[DB AUTOSEED ERROR] Failed to seed database:', err);
+});
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
