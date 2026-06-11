@@ -36,17 +36,20 @@ export const Register: React.FC = () => {
   if (isSuccess) {
     return (
       <div className="min-h-[75vh] flex items-center justify-center py-8 px-4 animate-fade-in font-sans">
-        <div className="bg-white dark:bg-slate-900 border dark:border-slate-800 p-8 rounded-3xl max-w-sm w-full shadow-lg text-center space-y-6 text-sm">
-          <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 font-bold flex items-center justify-center text-lg mx-auto border border-emerald-100 dark:border-emerald-900">
+        <div className="glass-card border border-white/10 p-8 rounded-3xl max-w-sm w-full shadow-2xl text-center space-y-6 text-sm">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 font-bold flex items-center justify-center text-lg mx-auto border border-emerald-500/20">
             ✓
           </div>
           <div className="space-y-2">
-            <h3 className="font-extrabold text-slate-850 dark:text-white">Verify Your Email</h3>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
+            <h3 className="font-extrabold text-white">Verify Your Email</h3>
+            <p className="text-xs text-white/60 leading-relaxed max-w-xs mx-auto">
               We have sent a verification link to <strong>{email}</strong>. Please click the link to confirm your account and log in.
             </p>
           </div>
-          <button onClick={() => navigate('/login')} className="w-full bg-brand-500 hover:bg-brand-600 text-white rounded-xl py-3 font-bold transition shadow-lg shadow-brand-500/20 text-xs uppercase tracking-wider">
+          <button 
+            onClick={() => navigate('/login')} 
+            className="w-full bg-pulse-red hover:brightness-110 text-white rounded-xl py-3 font-bold transition shadow-[0_0_20px_rgba(255,59,48,0.3)] text-xs uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99]"
+          >
             Go to Login
           </button>
         </div>
@@ -56,74 +59,74 @@ export const Register: React.FC = () => {
 
   return (
     <div className="min-h-[75vh] flex items-center justify-center py-8 px-4 animate-fade-in font-sans">
-      <div className="bg-white dark:bg-slate-900 border dark:border-slate-800 p-8 rounded-3xl max-w-sm w-full shadow-lg space-y-6 text-sm">
+      <div className="glass-card border border-white/10 p-8 rounded-3xl max-w-sm w-full shadow-2xl space-y-6 text-sm">
         
         {/* Title logo */}
         <div className="text-center space-y-2">
-          <Link to="/" className="inline-flex items-center gap-1.5 font-bold text-xl text-brand-500">
-            <Sparkles className="h-6 w-6 animate-pulse-subtle" />
-            <span>Nike Store</span>
+          <Link to="/" className="inline-flex items-center gap-1.5 font-sans font-black text-2xl uppercase text-white hover:text-pulse-red transition-colors tracking-tight">
+            <Sparkles className="h-5 w-5 text-pulse-red animate-pulse-subtle" />
+            <span>AIRVERSE</span>
           </Link>
-          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mt-2">Create a new account</h2>
+          <h2 className="text-xl font-extrabold text-white mt-2">Create a new account</h2>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1 relative">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase">Full Name</label>
+            <label className="block text-[10px] font-bold text-white/50 uppercase">Full Name</label>
             <div className="relative">
-              <User className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <User className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="text"
                 required
                 placeholder="John Doe"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-1 relative">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
+            <label className="block text-[10px] font-bold text-white/50 uppercase">Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <Mail className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="email"
                 required
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-1 relative">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase">Phone Number</label>
+            <label className="block text-[10px] font-bold text-white/50 uppercase">Phone Number</label>
             <div className="relative">
-              <Phone className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <Phone className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="text"
                 placeholder="+1 555-0100"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-1 relative">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase">Password</label>
+            <label className="block text-[10px] font-bold text-white/50 uppercase">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <Lock className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="password"
                 required
                 placeholder="••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
@@ -131,14 +134,14 @@ export const Register: React.FC = () => {
           <button
             type="submit"
             disabled={registerMutation.isPending}
-            className="w-full bg-brand-500 hover:bg-brand-600 text-white rounded-xl py-3 font-bold transition shadow-lg shadow-brand-500/20 disabled:opacity-50 uppercase tracking-wider text-[11px]"
+            className="w-full bg-pulse-red hover:brightness-110 text-white rounded-xl py-3 font-bold transition shadow-[0_0_20px_rgba(255,59,48,0.3)] disabled:opacity-50 uppercase tracking-wider text-[11px] hover:scale-[1.01] active:scale-[0.99]"
           >
             {registerMutation.isPending ? 'Registering...' : 'Register'}
           </button>
         </form>
 
-        <p className="text-center text-xs text-slate-500">
-          Already have an account? <Link to="/login" className="text-brand-500 font-bold hover:underline">Sign in</Link>
+        <p className="text-center text-xs text-white/50">
+          Already have an account? <Link to="/login" className="text-pulse-red font-bold hover:underline transition-colors">Sign in</Link>
         </p>
 
       </div>

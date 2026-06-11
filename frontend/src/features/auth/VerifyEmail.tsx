@@ -30,30 +30,30 @@ export const VerifyEmail: React.FC = () => {
 
   return (
     <div className="min-h-[75vh] flex items-center justify-center py-8 px-4 animate-fade-in font-sans">
-      <div className="bg-white dark:bg-slate-900 border dark:border-slate-800 p-8 rounded-3xl max-w-sm w-full shadow-lg space-y-6 text-sm text-center">
+      <div className="glass-card border border-white/10 p-8 rounded-3xl max-w-sm w-full shadow-2xl space-y-6 text-sm text-center">
         
         <div className="space-y-2">
-          <Link to="/" className="inline-flex items-center gap-1.5 font-bold text-xl text-brand-500">
-            <Sparkles className="h-6 w-6 animate-pulse-subtle" />
-            <span>Horizon</span>
+          <Link to="/" className="inline-flex items-center gap-1.5 font-sans font-black text-2xl uppercase text-white hover:text-pulse-red transition-colors tracking-tight">
+            <Sparkles className="h-5 w-5 text-pulse-red animate-pulse-subtle" />
+            <span>AIRVERSE</span>
           </Link>
-          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mt-2">Account Verification</h2>
+          <h2 className="text-xl font-extrabold text-white mt-2">Account Verification</h2>
         </div>
 
         {status === 'loading' && (
           <div className="space-y-4 py-8">
-            <Loader className="h-8 w-8 text-brand-500 animate-spin mx-auto" />
-            <p className="text-xs text-slate-400">Verifying your token credentials with Horizon backend...</p>
+            <Loader className="h-8 w-8 text-pulse-red animate-spin mx-auto" />
+            <p className="text-xs text-white/50">Verifying your token credentials with AIRVERSE backend...</p>
           </div>
         )}
 
         {status === 'success' && (
           <div className="space-y-6">
-            <div className="p-4 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 rounded-full w-fit mx-auto border border-emerald-100 dark:border-emerald-900">
+            <div className="p-4 bg-emerald-500/10 text-emerald-400 rounded-full w-fit mx-auto border border-emerald-500/20">
               <ShieldCheck className="h-10 w-10" />
             </div>
-            <p className="text-xs text-slate-500">Your email has been verified! You can now access full customer shopping features.</p>
-            <Link to="/login" className="block bg-brand-500 hover:bg-brand-600 text-white rounded-xl py-3 font-bold transition shadow-lg shadow-brand-500/20 text-xs uppercase tracking-wider">
+            <p className="text-xs text-white/60">Your email has been verified! You can now access full customer shopping features.</p>
+            <Link to="/login" className="block bg-pulse-red hover:brightness-110 text-white rounded-xl py-3 font-bold transition shadow-[0_0_20px_rgba(255,59,48,0.3)] text-xs uppercase tracking-wider text-center hover:scale-[1.01] active:scale-[0.99]">
               Sign In
             </Link>
           </div>
@@ -61,11 +61,11 @@ export const VerifyEmail: React.FC = () => {
 
         {status === 'error' && (
           <div className="space-y-6">
-            <div className="p-4 bg-red-50 dark:bg-red-950/20 text-red-500 rounded-full w-fit mx-auto border border-red-100 dark:border-red-900">
+            <div className="p-4 bg-red-500/10 text-pulse-red rounded-full w-fit mx-auto border border-red-500/20">
               <ShieldAlert className="h-10 w-10" />
             </div>
-            <p className="text-xs text-red-500 font-semibold">{message}</p>
-            <Link to="/register" className="block bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-white rounded-xl py-3 font-bold transition text-xs uppercase tracking-wider">
+            <p className="text-xs text-pulse-red font-semibold">{message}</p>
+            <Link to="/register" className="block border border-white/10 hover:bg-white/5 text-white rounded-xl py-3 font-bold transition text-xs uppercase tracking-wider text-center hover:scale-[1.01] active:scale-[0.99]">
               Register Again
             </Link>
           </div>

@@ -96,50 +96,50 @@ export const Login: React.FC = () => {
 
   return (
     <div className="min-h-[75vh] flex items-center justify-center py-8 px-4 animate-fade-in font-sans">
-      <div className="bg-white dark:bg-slate-900 border dark:border-slate-800 p-8 rounded-3xl max-w-sm w-full shadow-lg space-y-6 text-sm">
+      <div className="glass-card border border-white/10 p-8 rounded-3xl max-w-sm w-full shadow-2xl space-y-6 text-sm">
         
         {/* Title logo */}
         <div className="text-center space-y-2">
-          <Link to="/" className="inline-flex items-center gap-1.5 font-bold text-xl text-brand-500">
-            <Sparkles className="h-6 w-6 animate-pulse-subtle" />
-            <span>Nike Store</span>
+          <Link to="/" className="inline-flex items-center gap-1.5 font-sans font-black text-2xl uppercase text-white hover:text-pulse-red transition-colors tracking-tight">
+            <Sparkles className="h-5 w-5 text-pulse-red animate-pulse-subtle" />
+            <span>AIRVERSE</span>
           </Link>
-          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mt-2">
-            {isAdminPortal ? 'Nike Admin Portal' : 'Sign in to your account'}
+          <h2 className="text-xl font-extrabold text-white mt-2">
+            {isAdminPortal ? 'Admin Portal' : 'Sign in to your account'}
           </h2>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1 relative">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
+            <label className="block text-[10px] font-bold text-white/50 uppercase">Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <Mail className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="email"
                 required
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-1 relative">
             <div className="flex justify-between items-center mb-0.5">
-              <label className="block text-[10px] font-bold text-slate-400 uppercase">Password</label>
-              <Link to="/forgot-password" className="text-[10px] font-bold text-brand-500 hover:underline">Forgot?</Link>
+              <label className="block text-[10px] font-bold text-white/50 uppercase">Password</label>
+              <Link to="/forgot-password" className="text-[10px] font-bold text-pulse-red hover:underline">Forgot?</Link>
             </div>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
+              <Lock className="absolute left-3.5 top-3 h-4 w-4 text-white/40" />
               <input
                 type="password"
                 required
                 placeholder="••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-10 pl-10 pr-4 rounded-xl border dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-brand-500 dark:text-white"
+                className="w-full h-10 pl-10 pr-4 rounded-xl border border-white/10 bg-white/5 focus:ring-1 focus:ring-pulse-red text-white placeholder-white/30 outline-none transition-all"
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ export const Login: React.FC = () => {
           <button
             type="submit"
             disabled={loginMutation.isPending}
-            className="w-full bg-brand-500 hover:bg-brand-600 text-white rounded-xl py-3 font-bold transition shadow-lg shadow-brand-500/20 disabled:opacity-50 uppercase tracking-wider text-[11px]"
+            className="w-full bg-pulse-red hover:brightness-110 text-white rounded-xl py-3 font-bold transition shadow-[0_0_20px_rgba(255,59,48,0.3)] disabled:opacity-50 uppercase tracking-wider text-[11px] hover:scale-[1.01] active:scale-[0.99]"
           >
             {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
           </button>
@@ -155,16 +155,17 @@ export const Login: React.FC = () => {
 
         {!isAdminPortal && (
           <>
-            <div className="relative flex items-center justify-center py-2 text-[10px] uppercase font-bold text-slate-400">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t dark:border-slate-850" /></div>
-              <span className="relative bg-white dark:bg-slate-900 px-3">Or Continue With</span>
+            <div className="flex items-center gap-3 py-2 text-[10px] uppercase font-bold text-white/40">
+              <div className="flex-1 border-t border-white/10" />
+              <span>Or Continue With</span>
+              <div className="flex-1 border-t border-white/10" />
             </div>
 
             {/* Mock Google Login button */}
             <button
               onClick={handleMockGoogleLogin}
               disabled={googleLoginMutation.isPending}
-              className="w-full border dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-xl py-3 text-xs font-bold transition flex items-center justify-center gap-2 dark:text-white"
+              className="w-full border border-white/10 hover:bg-white/5 rounded-xl py-3 text-xs font-bold transition flex items-center justify-center gap-2 text-white hover:scale-[1.01] active:scale-[0.99]"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.9h6.69c-.29 1.5-.1.8-1.5 1.76v2.92h2.4c1.4-1.3 2.15-3.23 2.15-5.51z"/>
@@ -175,8 +176,8 @@ export const Login: React.FC = () => {
               <span>Mock Google Login</span>
             </button>
 
-            <p className="text-center text-xs text-slate-500">
-              New to Nike Store? <Link to="/register" className="text-brand-500 font-bold hover:underline">Register here</Link>
+            <p className="text-center text-xs text-white/50">
+              New to AIRVERSE? <Link to="/register" className="text-pulse-red font-bold hover:underline transition-colors">Register here</Link>
             </p>
           </>
         )}
