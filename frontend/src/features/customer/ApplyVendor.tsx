@@ -60,7 +60,7 @@ export const ApplyVendor: React.FC = () => {
       <div className="space-y-1">
         <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
           <Store className="h-6 w-6 text-brand-500" />
-          <span>Apply to Sell on Horizon</span>
+          <span>Apply to Sell on AIRVERSE</span>
         </h2>
         <p className="text-xs text-slate-500">Submit your company information to unlock seller capabilities.</p>
       </div>
