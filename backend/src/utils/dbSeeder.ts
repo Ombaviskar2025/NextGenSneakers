@@ -2,11 +2,11 @@ import { db } from '../config/db';
 
 export async function seedDatabase() {
   try {
-    // 1. Check if sneaker categories already exist
-    const checkCat = await db.query("SELECT count(*) FROM categories WHERE slug = 'lifestyle'");
-    const count = parseInt(checkCat.rows[0].count, 10);
+    // 1. Check if the new sneaker products already exist
+    const checkProd = await db.query("SELECT count(*) FROM products WHERE id = 'p-nike-jordan4'");
+    const count = parseInt(checkProd.rows[0].count, 10);
     if (count > 0) {
-      console.log('[DB AUTOSEED] Sneaker categories already exist. Skipping seeding.');
+      console.log('[DB AUTOSEED] Sneaker products already exist. Skipping seeding.');
       return;
     }
 
@@ -164,6 +164,71 @@ export async function seedDatabase() {
         is_featured: true,
         image_url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600',
         stock: 25
+      },
+      {
+        id: 'p-nike-jordan4',
+        cat_id: 'cat-basketball',
+        name: 'Air Jordan 4 Retro Bred Reimagined',
+        slug: 'air-jordan-4-retro-bred-reimagined',
+        desc: "The Air Jordan 4 Retro Bred Reimagined updates the iconic silhouette with a premium black leather upper, replacing the traditional nubuck of the 1989 original. Classic detailing remains intact, including retro Nike Air branding on the heel tab.",
+        price: 18995.00,
+        compare_at: 21995.00,
+        sku: 'AJ-4-RET-BRED-REIM',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600',
+        stock: 18
+      },
+      {
+        id: 'p-nike-travis',
+        cat_id: 'cat-lifestyle',
+        name: "Travis Scott x Air Jordan 1 Low 'Medium Olive'",
+        slug: 'travis-scott-air-jordan-1-low-medium-olive',
+        desc: "The Travis Scott x Air Jordan 1 Low 'Medium Olive' features the Houston rapper's signature reverse Swoosh on the lateral side, dressed in olive leather, contrasted by white leather overlays and an olive suede base.",
+        price: 16995.00,
+        compare_at: 19995.00,
+        sku: 'AJ-1-LOW-TS-OLV',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600',
+        stock: 8
+      },
+      {
+        id: 'p-nike-vaporfly',
+        cat_id: 'cat-running',
+        name: 'Nike ZoomX Vaporfly 3',
+        slug: 'nike-zoomx-vaporfly-3',
+        desc: "Giving you race-day speed to conquer any distance, the Nike ZoomX Vaporfly 3 is built for the chasers, the racers and the elevated pacers who can't turn down the thrill of the pursuit.",
+        price: 20695.00,
+        compare_at: 22995.00,
+        sku: 'NK-VAPORFLY-3-WHT',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1539185441755-769473a23570?w=600',
+        stock: 15
+      },
+      {
+        id: 'p-nike-bella',
+        cat_id: 'cat-training',
+        name: 'Nike Zoom Bella 6',
+        slug: 'nike-zoom-bella-6',
+        desc: "Release your inner force and drive in the Nike Zoom Bella 6. This design supports heavy lifts, explosive movements and post-set struts as you flaunt your hard-earned progress on the gym floor.",
+        price: 7495.00,
+        compare_at: 8995.00,
+        sku: 'NK-BELLA-6-PNK',
+        is_featured: false,
+        image_url: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600',
+        stock: 24
+      },
+      {
+        id: 'p-nike-courtpro',
+        cat_id: 'cat-tennis',
+        name: 'Nike Court Zoom Pro',
+        slug: 'nike-court-zoom-pro',
+        desc: "Harness the power of your serve in the Nike Court Zoom Pro. Working in tandem with the Zoom Air unit in the forefoot, it has a full-length plate that acts like a springboard for maximum energy return.",
+        price: 8495.00,
+        compare_at: 9995.00,
+        sku: 'NK-CRT-ZM-PRO',
+        is_featured: true,
+        image_url: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600',
+        stock: 12
       }
     ];
 

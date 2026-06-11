@@ -391,6 +391,156 @@
           "is_featured": true
         }
       ]
+    },
+    {
+      "id": "p-nike-jordan4",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-basketball",
+      "name": "Air Jordan 4 Retro Bred Reimagined",
+      "slug": "air-jordan-4-retro-bred-reimagined",
+      "description": "The Air Jordan 4 Retro Bred Reimagined updates the iconic silhouette with a premium black leather upper, replacing the traditional nubuck of the 1989 original. Classic detailing remains intact, including retro Nike Air branding on the heel tab.",
+      "price": 18995,
+      "compare_at_price": 21995,
+      "sku": "AJ-4-RET-BRED-REIM",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-09T10:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Basketball",
+      "stock_quantity": 18,
+      "low_stock_threshold": 5,
+      "rating": 5.0,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+      "images": [
+        {
+          "id": "img-jordan4-1",
+          "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-travis",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-lifestyle",
+      "name": "Travis Scott x Air Jordan 1 Low 'Medium Olive'",
+      "slug": "travis-scott-air-jordan-1-low-medium-olive",
+      "description": "The Travis Scott x Air Jordan 1 Low 'Medium Olive' features the Houston rapper's signature reverse Swoosh on the lateral side, dressed in olive leather, contrasted by white leather overlays and an olive suede base.",
+      "price": 16995,
+      "compare_at_price": 19995,
+      "sku": "AJ-1-LOW-TS-OLV",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-10T10:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Lifestyle",
+      "stock_quantity": 8,
+      "low_stock_threshold": 2,
+      "rating": 4.9,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+      "images": [
+        {
+          "id": "img-travis-1",
+          "image_url": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-vaporfly",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-running",
+      "name": "Nike ZoomX Vaporfly 3",
+      "slug": "nike-zoomx-vaporfly-3",
+      "description": "Giving you race-day speed to conquer any distance, the Nike ZoomX Vaporfly 3 is built for the chasers, the racers and the elevated pacers who can't turn down the thrill of the pursuit.",
+      "price": 20695,
+      "compare_at_price": 22995,
+      "sku": "NK-VAPORFLY-3-WHT",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-11T10:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Running",
+      "stock_quantity": 15,
+      "low_stock_threshold": 3,
+      "rating": 4.8,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=600",
+      "images": [
+        {
+          "id": "img-vaporfly-1",
+          "image_url": "https://images.unsplash.com/photo-1539185441755-769473a23570?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-bella",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-training",
+      "name": "Nike Zoom Bella 6",
+      "slug": "nike-zoom-bella-6",
+      "description": "Release your inner force and drive in the Nike Zoom Bella 6. This design supports heavy lifts, explosive movements and post-set struts as you flaunt your hard-earned progress on the gym floor.",
+      "price": 7495,
+      "compare_at_price": 8995,
+      "sku": "NK-BELLA-6-PNK",
+      "is_approved": true,
+      "is_featured": false,
+      "status": "published",
+      "created_at": "2026-06-11T11:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Training & Gym",
+      "stock_quantity": 24,
+      "low_stock_threshold": 4,
+      "rating": 4.5,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600",
+      "images": [
+        {
+          "id": "img-bella-1",
+          "image_url": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600",
+          "is_featured": true
+        }
+      ]
+    },
+    {
+      "id": "p-nike-courtpro",
+      "store_id": "s1111111-1111-1111-1111-111111111111",
+      "category_id": "cat-tennis",
+      "name": "Nike Court Zoom Pro",
+      "slug": "nike-court-zoom-pro",
+      "description": "Harness the power of your serve in the Nike Court Zoom Pro. Working in tandem with the Zoom Air unit in the forefoot, it has a full-length plate that acts like a springboard for maximum energy return.",
+      "price": 8495,
+      "compare_at_price": 9995,
+      "sku": "NK-CRT-ZM-PRO",
+      "is_approved": true,
+      "is_featured": true,
+      "status": "published",
+      "created_at": "2026-06-11T12:00:00.000Z",
+      "store_name": "Nike Official Store",
+      "store_slug": "nike-official",
+      "category_name": "Tennis",
+      "stock_quantity": 12,
+      "low_stock_threshold": 3,
+      "rating": 4.6,
+      "reviews_count": 0,
+      "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600",
+      "images": [
+        {
+          "id": "img-courtpro-1",
+          "image_url": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600",
+          "is_featured": true
+        }
+      ]
     }
   ],
   "reviews": [
