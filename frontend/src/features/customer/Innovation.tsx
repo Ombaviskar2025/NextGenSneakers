@@ -1,217 +1,546 @@
-import React, { useState } from 'react';
-import { Cpu, Zap, Activity, Award, CheckCircle, Flame, ShieldAlert } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Cpu, Zap, Activity, ShieldCheck, Award, Star, ArrowRight, ChevronDown } from 'lucide-react';
 
-interface TechPillar {
-  id: string;
+interface FeatureCallout {
+  scrollTrigger: [number, number]; // [startScrollPercent, endScrollPercent]
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
   description: string;
-  stats: { label: string; value: string }[];
-  details: string[];
+  xPos: 'left' | 'right';
+  yPos: 'top' | 'middle' | 'bottom';
 }
 
-const techPillars: TechPillar[] = [
+const featureCallouts: FeatureCallout[] = [
   {
-    id: 'casing',
-    title: 'AIRVERSE PRESSURIZED CASING',
-    subtitle: 'Dynamic Nitrogen Response Cells',
-    icon: <Cpu className="h-6 w-6 text-pulse-red" />,
-    description: 'Double-chambered, nitrogen-pressurized pods that flex and expand instantly based on impact strike vectors, offering tailormade cushioning.',
-    stats: [
-      { label: 'Energy Return', value: '+40%' },
-      { label: 'Cell Response Time', value: '1.2ms' },
-      { label: 'Compression Resilience', value: '99.8%' }
-    ],
-    details: [
-      'Encapsulated high-purity nitrogen chambers that resist thermal deformation.',
-      'Segmented channels that distribute impact loads away from joint stress zones.',
-      'Progressive density walls that stiffen proportionally to landing velocity.'
-    ]
+    scrollTrigger: [10, 35],
+    title: 'AEROWEAVE UPPER',
+    subtitle: 'Adaptive Tensile Thread Matrix',
+    description: 'A continuous, monofilament weave that expands under thermal heat and contracts for maximum lockdown during sudden lateral movements.',
+    xPos: 'left',
+    yPos: 'top'
   },
   {
-    id: 'plate',
+    scrollTrigger: [35, 65],
+    title: 'NITROGEN RESPONSE CELLS',
+    subtitle: 'Dual-Chamber Cushioning Pods',
+    description: 'Double-pressurized nitrogen chambers placed at high-impact vectors. Compresses proportionally to landing velocity to shield joint stress.',
+    xPos: 'right',
+    yPos: 'middle'
+  },
+  {
+    scrollTrigger: [65, 90],
     title: 'QUANTUM CARBON PLATE',
-    subtitle: 'Multi-Directional Launch Matrix',
-    icon: <Zap className="h-6 w-6 text-pulse-red" />,
-    description: 'A 3D-sculpted, variable-thickness aerospace-grade carbon composite plate designed to store bending energy and snap forward at toe-off.',
-    stats: [
-      { label: 'Propulsion Index', value: '9.8/10' },
-      { label: 'Weight Profile', value: '14 grams' },
-      { label: 'Stiffness Ratio', value: 'Carbon-S2' }
-    ],
-    details: [
-      'Variable-flex layup structure that allows natural forefoot pronation.',
-      'Spoons-shaped geometry optimized for stride acceleration profiles.',
-      'Torsional stabilization wings that reduce ankle fatigue on curved routes.'
-    ]
-  },
-  {
-    id: 'weave',
-    title: 'AEROWEAVE ADAPTIVE UPPER',
-    subtitle: 'High-Tensile Kinetic Matrix Thread',
-    icon: <Activity className="h-6 w-6 text-pulse-red" />,
-    description: 'A monofilament matrix weave that expands and tightens dynamically under lateral strain, providing a second-skin fit without internal seams.',
-    stats: [
-      { label: 'Weight Reduction', value: '-15%' },
-      { label: 'Tensile Strength', value: '450N/m' },
-      { label: 'Air Permeability', value: '180 l/m²/s' }
-    ],
-    details: [
-      'Zoned weave structures that place maximum containment only where needed.',
-      'Elastic core threads that contract in response to foot temperature rise.',
-      '100% recycled high-performance yarn blended with metallic composite fibers.'
-    ]
+    subtitle: 'Aerospace Composite Launch Matrix',
+    description: 'A 3D-sculpted variable-thickness plate designed to store bending energy at landing and snap forward, acting as a kinetic launch pad.',
+    xPos: 'left',
+    yPos: 'bottom'
   }
 ];
 
 export const Innovation: React.FC = () => {
-  const [activeTechId, setActiveTechId] = useState<string>('casing');
-  const activeTech = techPillars.find(t => t.id === activeTechId) || techPillars[0];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [scrollPercent, setScrollPercent] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loadError, setLoadError] = useState<boolean>(false);
+  const [activeTestimonial, setActiveTestimonial] = useState<number>(0);
+
+  // Testimonials database
+  const testimonials = [
+    {
+      name: 'Alice Shopper',
+      role: 'Marathon Runner',
+      stars: 5,
+      comment: "Most comfortable sneakers I've ever worn. The energy return on long runs is unbelievable!"
+    },
+    {
+      name: 'Dr. Sarah Vance',
+      role: 'Biomechanics Specialist',
+      stars: 5,
+      comment: "The pressurized nitrogen cells provide exceptional cushioning and support without compromising on weight."
+    },
+    {
+      name: 'Marcus Twan',
+      role: 'Athletic Trainer',
+      stars: 5,
+      comment: "Outstanding lateral lock. The carbon plate snaps back instantly at toe-off. An absolute masterpiece."
+    }
+  ];
+
+  // Scroll listener to calculate progress
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
+      
+      // Calculate overall scroll progress (0 to 100)
+      const scrolled = -rect.top;
+      const percent = Math.min(Math.max((scrolled / totalHeight) * 100, 0), 100);
+      setScrollPercent(percent);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    
+    // Initial trigger
+    setTimeout(handleScroll, 200);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
+  // Three.js Scene Initialization
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    // 1. Scene setup
+    const scene = new THREE.Scene();
+    
+    // 2. Camera setup
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(0, 0.2, 5);
+
+    // 3. Renderer setup
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+
+    // 4. Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight1.position.set(5, 10, 7);
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0xff3b30, 0.6); // Premium red secondary light
+    dirLight2.position.set(-5, -3, -5);
+    scene.add(dirLight2);
+
+    const pointLight = new THREE.PointLight(0xffffff, 0.5, 10);
+    pointLight.position.set(0, 2, 2);
+    scene.add(pointLight);
+
+    // 5. Model references for animations
+    let shoeRoot: THREE.Group | null = null;
+    const meshes: { mesh: THREE.Mesh; originalPos: THREE.Vector3; direction: THREE.Vector3 }[] = [];
+
+    // Fallback: build a wireframe shoe block if GLB fails
+    const createFallbackMesh = () => {
+      const fallbackGroup = new THREE.Group();
+      
+      // Sole block
+      const soleGeo = new THREE.BoxGeometry(1.6, 0.25, 0.6);
+      const soleMat = new THREE.MeshPhongMaterial({ color: 0xff3b30, wireframe: true });
+      const sole = new THREE.Mesh(soleGeo, soleMat);
+      sole.position.y = -0.2;
+      fallbackGroup.add(sole);
+      meshes.push({ mesh: sole, originalPos: sole.position.clone(), direction: new THREE.Vector3(0, -0.4, 0) });
+
+      // Cushion pods
+      const podGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.15, 8);
+      const podMat = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: true });
+      for (let i = -0.6; i <= 0.6; i += 0.4) {
+        const pod = new THREE.Mesh(podGeo, podMat);
+        pod.position.set(i, -0.1, 0);
+        fallbackGroup.add(pod);
+        meshes.push({ mesh: pod, originalPos: pod.position.clone(), direction: new THREE.Vector3(i * 0.2, -0.2, (Math.random() - 0.5) * 0.2) });
+      }
+
+      // Upper block
+      const upperGeo = new THREE.BoxGeometry(1.4, 0.4, 0.55);
+      const upperMat = new THREE.MeshPhongMaterial({ color: 0x2c2c2e, wireframe: true });
+      const upper = new THREE.Mesh(upperGeo, upperMat);
+      upper.position.y = 0.15;
+      fallbackGroup.add(upper);
+      meshes.push({ mesh: upper, originalPos: upper.position.clone(), direction: new THREE.Vector3(0, 0.3, 0) });
+
+      // Collar/Opening
+      const collarGeo = new THREE.BoxGeometry(0.5, 0.3, 0.5);
+      const collarMat = new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: true });
+      const collar = new THREE.Mesh(collarGeo, collarMat);
+      collar.position.set(-0.3, 0.4, 0);
+      fallbackGroup.add(collar);
+      meshes.push({ mesh: collar, originalPos: collar.position.clone(), direction: new THREE.Vector3(-0.2, 0.4, 0) });
+
+      scene.add(fallbackGroup);
+      shoeRoot = fallbackGroup as unknown as THREE.Group;
+      setIsLoading(false);
+    };
+
+    // Load GLTF shoe model
+    const loader = new GLTFLoader();
+    loader.load(
+      '/models/shoe.glb',
+      (gltf) => {
+        const model = gltf.scene;
+        
+        // Scale and center the model
+        model.scale.set(1.4, 1.4, 1.4);
+        model.position.set(0, -0.1, 0);
+        
+        // Traverse to configure materials and track individual meshes for disassembly
+        model.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            
+            // Adjust materials to support transparency & wireframe highlights during scroll
+            if (mesh.material) {
+              const mat = mesh.material as THREE.MeshStandardMaterial;
+              mat.transparent = true;
+              mat.opacity = 1.0;
+            }
+
+            // Exploded Direction Vector: distance vector from the model center
+            const meshCenter = new THREE.Vector3();
+            mesh.geometry.computeBoundingBox();
+            if (mesh.geometry.boundingBox) {
+              mesh.geometry.boundingBox.getCenter(meshCenter);
+            }
+            meshCenter.applyMatrix4(mesh.matrixWorld);
+
+            // Establish explode direction outward from center
+            const direction = meshCenter.clone().normalize();
+            
+            // Ensure some custom dramatic directions for specific types
+            const nameLower = mesh.name.toLowerCase();
+            if (nameLower.includes('lace') || nameLower.includes('string')) {
+              direction.set(0, 0.6, 0.2);
+            } else if (nameLower.includes('sole') || nameLower.includes('bottom') || nameLower.includes('midsole')) {
+              direction.set(0, -0.6, 0);
+            } else if (nameLower.includes('upper') || nameLower.includes('body')) {
+              direction.set(0, 0.2, 0.4);
+            } else if (direction.length() === 0) {
+              direction.set((Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 0.5).normalize();
+            }
+
+            meshes.push({
+              mesh,
+              originalPos: mesh.position.clone(),
+              direction
+            });
+          }
+        });
+
+        scene.add(model);
+        shoeRoot = model;
+        setIsLoading(false);
+      },
+      undefined,
+      (err) => {
+        console.error('Failed to load shoe GLTF model. Rendering wireframe fallback.', err);
+        setLoadError(true);
+        createFallbackMesh();
+      }
+    );
+
+    // Mouse interactive shift
+    let mouseX = 0;
+    let mouseY = 0;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = (e.clientX / window.innerWidth) - 0.5;
+      mouseY = (e.clientY / window.innerHeight) - 0.5;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // 6. Animation loop variables
+    let reqId: number;
+    let currentRotationY = 0;
+    let targetRotationY = 0;
+
+    // Render loop
+    const animate = () => {
+      reqId = requestAnimationFrame(animate);
+
+      // Handle resize
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      }
+
+      // Check current scroll status (passed via ref or module state)
+      const currentScroll = parseFloat(canvas.dataset.scroll || '0');
+
+      if (shoeRoot) {
+        // A. Scroll-controlled Rotation: Complete 360 rotation as page scrolls
+        targetRotationY = (currentScroll / 100) * Math.PI * 4; // 2 full turns
+        currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+        
+        shoeRoot.rotation.y = currentRotationY;
+        
+        // Add subtle mouse hover rotation
+        shoeRoot.rotation.x = THREE.MathUtils.lerp(shoeRoot.rotation.x, mouseY * 0.4, 0.05);
+        shoeRoot.rotation.z = THREE.MathUtils.lerp(shoeRoot.rotation.z, -mouseX * 0.3, 0.05);
+
+        // B. Exploded View (Disassembly): Starts from 30% scroll and reaches maximum at 65% scroll
+        let explodeProgress = 0;
+        if (currentScroll >= 30 && currentScroll <= 70) {
+          // Explode outwards
+          explodeProgress = (currentScroll - 30) / 40;
+        } else if (currentScroll > 70) {
+          // Reassemble slowly back to solid
+          explodeProgress = Math.max(0, 1 - (currentScroll - 70) / 20);
+        }
+
+        meshes.forEach(({ mesh, originalPos, direction }) => {
+          // Offset position along direction vector
+          const offset = direction.clone().multiplyScalar(explodeProgress * 0.85);
+          mesh.position.copy(originalPos).add(offset);
+          
+          // C. Material opacity highlight (Ghosting during material breakdown section at 60-80% scroll)
+          if (mesh.material) {
+            const mat = mesh.material as THREE.MeshStandardMaterial;
+            if (currentScroll >= 60 && currentScroll <= 80) {
+              const nameLower = mesh.name.toLowerCase();
+              // Make carbon plate meshes solid, and other meshes semi-transparent
+              if (nameLower.includes('plate') || nameLower.includes('carbon')) {
+                mat.opacity = 1.0;
+                mat.wireframe = false;
+              } else {
+                mat.opacity = 0.25;
+                mat.wireframe = true;
+              }
+            } else {
+              mat.opacity = 1.0;
+              mat.wireframe = false;
+            }
+          }
+        });
+      }
+
+      renderer.render(scene, camera);
+    };
+
+    reqId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(reqId);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  // Sync scroll percent into canvas dataset attribute for animation loop
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.dataset.scroll = scrollPercent.toString();
+    }
+  }, [scrollPercent]);
 
   return (
-    <div className="bg-surface-dim min-h-screen pt-12 pb-24 space-y-24">
+    <div ref={containerRef} className="relative bg-[#0d0d0d] min-h-[400vh] text-white overflow-hidden">
       
-      {/* 1. Lab Header */}
-      <section className="px-6 md:px-16 max-w-container-max mx-auto text-center space-y-6">
-        <span className="text-pulse-red font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2">
-          <Flame className="h-4 w-4" />
-          PERFORMANCE LAB
-        </span>
-        <h1 className="text-4xl md:text-7xl font-sans font-black text-white uppercase tracking-tighter leading-none">
-          AIRVERSE INNOVATION
-        </h1>
-        <p className="text-platinum-gray text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-          Where atomic-level materials science meets elite athletic engineering. We disassemble traditional footwear boundaries to reconstruct speed from the sole up.
-        </p>
-      </section>
-
-      {/* 2. Interactive Tech Showcase */}
-      <section className="px-6 md:px-16 max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      {/* ── BACKGROUND VIEWPORT CANVASES ───────────────── */}
+      <div className="fixed inset-0 w-full h-screen z-0 pointer-events-none select-none">
         
-        {/* Navigation Selector (Left) */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <span className="text-[10px] font-bold text-platinum-gray uppercase tracking-widest px-4">SELECT CORE PILLAR</span>
-          {techPillars.map((tech) => (
-            <button
-              key={tech.id}
-              onClick={() => setActiveTechId(tech.id)}
-              className={`p-6 text-left rounded-2xl border transition-all duration-300 flex items-start gap-4 ${
-                activeTechId === tech.id
-                  ? 'bg-white/5 border-pulse-red shadow-lg shadow-pulse-red/10'
-                  : 'bg-transparent border-white/5 hover:border-white/10 hover:bg-white/2'
-              }`}
-            >
-              <div className={`p-3 rounded-xl border ${activeTechId === tech.id ? 'bg-pulse-red/10 border-pulse-red/35' : 'bg-white/5 border-white/5'}`}>
-                {tech.icon}
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-black text-white text-xs tracking-wider uppercase">{tech.title}</h3>
-                <p className="text-[10px] text-platinum-gray font-semibold uppercase">{tech.subtitle}</p>
-              </div>
-            </button>
-          ))}
+        {/* Glow behind 3D canvas */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] md:w-[45vw] md:h-[45vw] bg-pulse-red/5 rounded-full blur-[120px] z-0" />
+        
+        {/* Three.js Canvas Container */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full max-w-[1200px] max-h-[800px] transition-all duration-300"
+          />
         </div>
+      </div>
 
-        {/* Detailed Showcase Panel (Right) */}
-        <div className="lg:col-span-8 glass-card p-8 md:p-12 rounded-3xl border border-white/5 flex flex-col gap-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-pulse-red/5 rounded-full blur-3xl" />
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0d0d0d] transition-opacity duration-300">
+          <div className="w-12 h-12 border-4 border-pulse-red border-t-transparent rounded-full animate-spin mb-4" />
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/50">INITIALIZING 3D ENGINE...</span>
+        </div>
+      )}
+
+      {/* ── FLOAT OVERLAYS (STORYTELLING CARDS) ─────────── */}
+      <div className="relative z-10 w-full pointer-events-none">
+        
+        {/* Section 1: Intro Hero */}
+        <section className="h-screen flex flex-col justify-between items-center text-center p-6 pt-24 pb-16">
+          <div className="space-y-4 animate-fade-in">
+            <span className="text-pulse-red font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+              <Zap className="h-4 w-4 animate-pulse" />
+              AIRVERSE LABS
+            </span>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white">
+              INNOVATION ENGINE
+            </h1>
+            <p className="text-platinum-gray/60 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+              Experience performance deconstructed. Scroll down to trigger the system disassembly and explore the material blueprints.
+            </p>
+          </div>
           
-          <div className="space-y-4">
-            <span className="text-pulse-red text-[10px] font-bold uppercase tracking-widest">Active technology module</span>
-            <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight leading-none">
-              {activeTech.title}
-            </h2>
-            <p className="text-platinum-gray text-xs md:text-sm leading-relaxed">
-              {activeTech.description}
-            </p>
+          <div className="flex flex-col items-center gap-2 animate-bounce opacity-50">
+            <span className="text-[10px] font-bold tracking-widest uppercase">SCROLL TO DISASSEMBLE</span>
+            <ChevronDown className="h-4.5 w-4.5 text-pulse-red" />
           </div>
+        </section>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-4 border-y border-white/5 py-8">
-            {activeTech.stats.map((stat, i) => (
-              <div key={i} className="text-center md:text-left space-y-2">
-                <span className="block text-3xl md:text-4xl font-sans font-black text-pulse-red">{stat.value}</span>
-                <span className="block text-[9px] font-bold text-platinum-gray uppercase tracking-widest leading-none">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+        {/* Feature Highlights Overlay (Triggered by scroll progress) */}
+        <div className="fixed inset-0 z-20 pointer-events-none flex items-center justify-center px-6 md:px-16 max-w-container-max mx-auto h-screen">
+          {featureCallouts.map((callout, index) => {
+            const isVisible = scrollPercent >= callout.scrollTrigger[0] && scrollPercent < callout.scrollTrigger[1];
+            
+            // Layout Alignment Classes
+            const xAlignClass = callout.xPos === 'left' ? 'mr-auto md:ml-12' : 'ml-auto md:mr-12';
+            const yAlignClass = 
+              callout.yPos === 'top' ? 'mb-40' : 
+              callout.yPos === 'bottom' ? 'mt-40' : '';
 
-          {/* Tech bullet details */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">SYSTEM SPECIFICATIONS:</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {activeTech.details.map((detail, idx) => (
-                <div key={idx} className="flex gap-3 items-start bg-white/3 p-4 rounded-xl border border-white/5">
-                  <CheckCircle className="h-4.5 w-4.5 text-pulse-red flex-shrink-0 mt-0.5" />
-                  <p className="text-platinum-gray text-xs leading-relaxed">{detail}</p>
+            return (
+              <div
+                key={index}
+                className={`absolute w-full max-w-[340px] pointer-events-auto transition-all duration-500 ease-out p-6 rounded-2xl glass-card border border-white/10 shadow-2xl ${
+                  isVisible 
+                    ? 'opacity-100 translate-y-0 scale-100 filter blur-0 pointer-events-auto' 
+                    : 'opacity-0 translate-y-8 scale-95 filter blur-sm pointer-events-none'
+                } ${xAlignClass} ${yAlignClass}`}
+              >
+                <div className="space-y-3">
+                  <div className="flex gap-2.5 items-center">
+                    <span className="bg-pulse-red/10 border border-pulse-red/35 rounded-lg p-2.5 text-pulse-red">
+                      {index === 0 ? <Activity className="h-4.5 w-4.5" /> : index === 1 ? <Cpu className="h-4.5 w-4.5" /> : <Zap className="h-4.5 w-4.5" />}
+                    </span>
+                    <div>
+                      <h3 className="text-white font-black text-xs uppercase tracking-wider leading-none">{callout.title}</h3>
+                      <span className="text-[9px] font-bold text-platinum-gray uppercase tracking-widest leading-none mt-1 block">{callout.subtitle}</span>
+                    </div>
+                  </div>
+                  <p className="text-platinum-gray/80 text-[11px] leading-relaxed">
+                    {callout.description}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-
+              </div>
+            );
+          })}
         </div>
-      </section>
 
-      {/* 3. Tech Spec Comparison */}
-      <section className="px-6 md:px-16 max-w-container-max mx-auto space-y-8">
-        <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight text-center md:text-left">Tech Blueprint</h3>
-        <div className="overflow-x-auto glass-card rounded-2xl border border-white/5 shadow-2xl">
-          <table className="w-full border-collapse text-left text-xs tracking-wide">
-            <thead>
-              <tr className="border-b border-white/10 text-[10px] font-bold text-platinum-gray uppercase bg-white/2">
-                <th className="p-6">Feature Metric</th>
-                <th className="p-6">Standard Foam Tech</th>
-                <th className="p-6">AirVerse Lab Tech</th>
-                <th className="p-6 text-pulse-red">Performance Gain</th>
-              </tr>
-            </thead>
-            <tbody className="text-platinum-gray uppercase font-semibold">
-              <tr className="border-b border-white/5 hover:bg-white/2 transition-colors">
-                <td className="p-6 font-bold text-white">Energy Return Rate</td>
-                <td className="p-6">58% - 64%</td>
-                <td className="p-6 text-white font-bold">88% - 94%</td>
-                <td className="p-6 text-pulse-red font-black">+42% Boost</td>
-              </tr>
-              <tr className="border-b border-white/5 hover:bg-white/2 transition-colors">
-                <td className="p-6 font-bold text-white">Midsole Density Degradation</td>
-                <td className="p-6">After 250 Kilometers</td>
-                <td className="p-6 text-white font-bold">After 800 Kilometers</td>
-                <td className="p-6 text-pulse-red font-black">3.2x Lifetime</td>
-              </tr>
-              <tr className="border-b border-white/5 hover:bg-white/2 transition-colors">
-                <td className="p-6 font-bold text-white">Component Weight (Size 9)</td>
-                <td className="p-6">145 Grams</td>
-                <td className="p-6 text-white font-bold">98 Grams</td>
-                <td className="p-6 text-pulse-red font-black">32% Lighter</td>
-              </tr>
-              <tr className="hover:bg-white/2 transition-colors">
-                <td className="p-6 font-bold text-white">Lockdown Strain Response</td>
-                <td className="p-6">Static Friction</td>
-                <td className="p-6 text-white font-bold">Dynamic Tensile Shrink</td>
-                <td className="p-6 text-pulse-red font-black">Active Adaptive</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+        {/* Height Spacer Sections matching the triggers */}
+        <div className="h-screen" /> {/* 100vh spacer for callout 1 */}
+        <div className="h-screen" /> {/* 200vh spacer for callout 2 */}
+        <div className="h-screen" /> {/* 300vh spacer for callout 3 */}
 
-      {/* 4. Elite Lab Certification */}
-      <section className="px-6 md:px-16 max-w-5xl mx-auto">
-        <div className="p-8 md:p-12 bg-surface-container rounded-3xl border border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
-          <div className="col-span-1 flex justify-center">
-            <div className="p-5 bg-pulse-red/10 border border-pulse-red/30 rounded-full">
-              <Award className="h-14 w-14 text-pulse-red" />
-            </div>
-          </div>
-          <div className="col-span-1 md:col-span-2 space-y-4">
-            <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">IAAF IAAF-Approved Specs</h3>
-            <p className="text-platinum-gray text-xs leading-relaxed">
-              Every compound, foam thickness, and carbon stack height designed in the AirVerse Innovation Lab is strictly tested and certified to fall within elite international competition boundaries.
-            </p>
+        {/* ── FOOTER SECTIONS (STATISTICS & TESTIMONIALS) ─── */}
+        <div className="relative bg-[#0d0d0d]/90 backdrop-blur-3xl border-t border-white/10 z-30 pointer-events-auto select-none pt-24 pb-20">
+          
+          <div className="max-w-container-max mx-auto px-6 md:px-12 space-y-24">
+            
+            {/* 1. Statistics Section */}
+            <section className="space-y-12">
+              <div className="text-center space-y-4 max-w-xl mx-auto">
+                <span className="text-pulse-red text-[10px] font-bold uppercase tracking-widest">PERFORMANCE BY THE NUMBERS</span>
+                <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">ENGINEERED STATISTICS</h2>
+                <p className="text-platinum-gray/60 text-xs leading-relaxed">
+                  Through scientific formulation and athlete feedback, we build speed benchmarks that prove themselves at every stride.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="p-8 rounded-2xl glass-card border border-white/5 text-center space-y-3 hover:border-pulse-red/25 transition duration-300">
+                  <span className="block text-4xl md:text-5xl font-sans font-black text-pulse-red">100%</span>
+                  <div>
+                    <h4 className="font-bold text-white uppercase tracking-wider text-xs">SUSTAINABLE MATERIALS</h4>
+                    <p className="text-platinum-gray/50 text-[10px] uppercase font-semibold leading-relaxed mt-1">Made from recycled polyester matrix</p>
+                  </div>
+                </div>
+                
+                <div className="p-8 rounded-2xl glass-card border border-white/5 text-center space-y-3 hover:border-pulse-red/25 transition duration-300">
+                  <span className="block text-4xl md:text-5xl font-sans font-black text-pulse-red">25%</span>
+                  <div>
+                    <h4 className="font-bold text-white uppercase tracking-wider text-xs">LIGHTER MIDSOLE</h4>
+                    <p className="text-platinum-gray/50 text-[10px] uppercase font-semibold leading-relaxed mt-1">Nitrogen density optimization</p>
+                  </div>
+                </div>
+
+                <div className="p-8 rounded-2xl glass-card border border-white/5 text-center space-y-3 hover:border-pulse-red/25 transition duration-300">
+                  <span className="block text-4xl md:text-5xl font-sans font-black text-pulse-red">50K+</span>
+                  <div>
+                    <h4 className="font-bold text-white uppercase tracking-wider text-xs">GLOBAL ATHLETES</h4>
+                    <p className="text-platinum-gray/50 text-[10px] uppercase font-semibold leading-relaxed mt-1">Active customer feedback community</p>
+                  </div>
+                </div>
+
+                <div className="p-8 rounded-2xl glass-card border border-white/5 text-center space-y-3 hover:border-pulse-red/25 transition duration-300">
+                  <span className="block text-4xl md:text-5xl font-sans font-black text-pulse-red">4.9 ★</span>
+                  <div>
+                    <h4 className="font-bold text-white uppercase tracking-wider text-xs">AVERAGE RATING</h4>
+                    <p className="text-platinum-gray/50 text-[10px] uppercase font-semibold leading-relaxed mt-1">From certified buyers and reviewers</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 2. Testimonials Section */}
+            <section className="space-y-12">
+              <div className="text-center space-y-4 max-w-xl mx-auto">
+                <span className="text-pulse-red text-[10px] font-bold uppercase tracking-widest">ATHLETE VOICES</span>
+                <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter">WHAT THEY SAY</h2>
+              </div>
+
+              <div className="glass-card p-8 md:p-14 rounded-3xl border border-white/5 max-w-3xl mx-auto shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left transition-all duration-350">
+                <div className="p-5 bg-pulse-red/10 border border-pulse-red/20 rounded-full flex-shrink-0">
+                  <Award className="h-12 w-12 text-pulse-red" />
+                </div>
+                <div className="space-y-4 flex-1">
+                  <div className="flex justify-center md:justify-start gap-1">
+                    {[...Array(testimonials[activeTestimonial].stars)].map((_, i) => (
+                      <Star key={i} className="h-4.5 w-4.5 fill-pulse-red text-pulse-red" />
+                    ))}
+                  </div>
+                  <p className="text-lg md:text-xl font-bold italic leading-relaxed text-white">
+                    "{testimonials[activeTestimonial].comment}"
+                  </p>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-white/5">
+                    <div>
+                      <h4 className="font-black text-white text-xs uppercase tracking-wider">{testimonials[activeTestimonial].name}</h4>
+                      <span className="text-[10px] font-bold text-platinum-gray/60 uppercase tracking-widest">{testimonials[activeTestimonial].role}</span>
+                    </div>
+                    
+                    {/* Navigation Dots */}
+                    <div className="flex justify-center gap-2.5">
+                      {testimonials.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveTestimonial(idx)}
+                          className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                            activeTestimonial === idx 
+                              ? 'bg-pulse-red scale-125' 
+                              : 'bg-white/20 hover:bg-white/40'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
           </div>
         </div>
-      </section>
+
+      </div>
 
     </div>
   );

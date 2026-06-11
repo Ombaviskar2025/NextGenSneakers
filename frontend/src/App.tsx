@@ -18,6 +18,7 @@ import { ApplyVendor } from './features/customer/ApplyVendor';
 import { Stories } from './features/customer/Stories';
 import { Innovation } from './features/customer/Innovation';
 import { Sustainability } from './features/customer/Sustainability';
+import { AIStudio } from './features/customer/AIStudio';
 
 // Auth Pages
 import { Login } from './features/auth/Login';
@@ -53,6 +54,7 @@ const App: React.FC = () => {
           <Route path="stories" element={<Stories />} />
           <Route path="innovation" element={<Innovation />} />
           <Route path="sustainability" element={<Sustainability />} />
+          <Route path="ai-studio" element={<AIStudio />} />
           
           {/* Protected Customer Routes */}
           <Route path="wishlist" element={<Wishlist />} />

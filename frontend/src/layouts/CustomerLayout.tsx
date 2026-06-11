@@ -150,6 +150,14 @@ export const CustomerLayout: React.FC = () => {
             >
               Sustainability
             </Link>
+            <Link 
+              to="/ai-studio" 
+              className={`font-button-text text-button-text pb-1 tracking-wider uppercase transition-colors ${
+                pathname === '/ai-studio' ? 'text-pulse-red border-b-2 border-pulse-red' : 'text-on-surface/70 hover:text-on-surface font-bold'
+              }`}
+            >
+              AI Studio
+            </Link>
           </div>
 
           {/* Search bar & Actions */}
@@ -300,6 +308,13 @@ export const CustomerLayout: React.FC = () => {
               >
                 Sustainability
               </Link>
+              <Link 
+                to="/ai-studio" 
+                className={`py-2 transition-colors ${pathname === '/ai-studio' ? 'text-pulse-red' : 'text-on-surface/70 hover:text-on-surface'}`} 
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                AI Studio
+              </Link>
             </div>
           </div>
         )}
@@ -335,6 +350,11 @@ export const CustomerLayout: React.FC = () => {
               <li>
                 <Link to="/sustainability" className="text-platinum-gray hover:text-white transition-colors block hover:translate-x-1 snappy">
                   Sustainability
+                </Link>
+              </li>
+              <li>
+                <Link to="/ai-studio" className="text-platinum-gray hover:text-white transition-colors block hover:translate-x-1 snappy">
+                  AI Studio
                 </Link>
               </li>
             </ul>
