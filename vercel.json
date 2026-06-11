@@ -1,15 +1,21 @@
 {
-  "experimentalServices": {
-    "frontend": {
-      "root": "frontend",
-      "routePrefix": "/*",
-      "framework": "vite"
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.ts"
     },
-    "backend": {
-      "root": "backend",
-      "entrypoint": "src/index.ts",
-      "builder": "@vercel/node",
-      "routePrefix": "/api"
+    {
+      "source": "/health",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
-  }
+  ]
 }
