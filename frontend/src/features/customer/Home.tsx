@@ -140,40 +140,40 @@ const HeroShoeViewer: React.FC<HeroShoeViewerProps> = ({ modelId, title }) => {
 
 const SHOE_MODELS = [
   {
-    id: '0f9cd6cc050b499b8109a7277523e8f2',
-    name: 'AJ4 Bred',
-    line1: 'MOVE FASTER',
-    line2: 'THAN TOMORROW',
-  },
-  {
-    id: '4e8e2d7e10824b42b6b6680459c03823',
+    id: 'cd636a0c88c34ded9db4b105c6d32111',
     name: 'AJ1 Chicago',
     line1: 'THE LEGEND',
     line2: 'BEGINS HERE',
   },
   {
-    id: '859e7146524949a997235b23e2154564',
-    name: 'Yeezy 350',
-    line1: 'LIMITLESS STYLE',
-    line2: '& COMFORT',
-  },
-  {
-    id: '441c80b7218342419c80d85915751d38',
+    id: 'b31490617aff44c79e652eaab88ba6d3',
     name: 'Travis Scott',
     line1: 'REDEFINE THE',
     line2: 'CLASSICS',
   },
   {
-    id: 'a58a5d2e33f34583b4c107f9038d82d4',
+    id: 'f2d91178a7124c0696ad357a7f5d0b11',
     name: 'Air Max 90',
     line1: 'MAXIMUM AIR',
     line2: 'MAXIMUM PACE',
   },
   {
-    id: '6677f523c10a4305886369239d675691',
+    id: '1d964e3914b94d8b98dd450c7f7c24cd',
     name: 'Air Force 1',
     line1: 'COURT CLASSIC',
     line2: 'STREET LEGEND',
+  },
+  {
+    id: '7e7d114a092a405dbbf2311e9046923b',
+    name: 'AirForce',
+    line1: 'ELEVATE YOUR',
+    line2: 'STRIDE',
+  },
+  {
+    id: 'ab3f0008870f4469a911e1878929d1fd',
+    name: 'Air Jordan 4',
+    line1: 'MOVE FASTER',
+    line2: 'THAN TOMORROW',
   }
 ];
 
