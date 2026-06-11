@@ -117,7 +117,7 @@ interface HeroShoeViewerProps {
 }
 
 const HeroShoeViewer: React.FC<HeroShoeViewerProps> = ({ modelId, title }) => {
-  const iframeSrc = `https://sketchfab.com/models/${modelId}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&ui_title=0&ui_author=0&ui_hint=0&camera=0&preload=1&scrollwheel=0&dnt=1`;
+  const iframeSrc = `https://sketchfab.com/models/${modelId}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&ui_title=0&ui_author=0&ui_hint=0&camera=0&preload=1&scrollwheel=0&dnt=1&max_texture_size=1024&graph_optimizer=1`;
 
   return (
     <div 
