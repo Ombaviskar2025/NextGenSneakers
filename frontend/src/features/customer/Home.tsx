@@ -108,13 +108,16 @@ const WebGLBackground: React.FC = () => {
 };
 
 // ----------------------------------------------------
-// Sketchfab 3D Jordan 4 Bred Embed
-// Uses the real hi-res 3D scanned model
+// Sketchfab 3D Shoe Viewer Embed
+// Uses dynamic model IDs loaded from Sketchfab
 // ----------------------------------------------------
-const SKETCHFAB_MODEL_ID = '0f9cd6cc050b499b8109a7277523e8f2';
+interface HeroShoeViewerProps {
+  modelId: string;
+  title: string;
+}
 
-const HeroShoeViewer: React.FC = () => {
-  const iframeSrc = `https://sketchfab.com/models/${SKETCHFAB_MODEL_ID}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&ui_title=0&ui_author=0&ui_hint=0&camera=0&preload=1&scrollwheel=0&dnt=1`;
+const HeroShoeViewer: React.FC<HeroShoeViewerProps> = ({ modelId, title }) => {
+  const iframeSrc = `https://sketchfab.com/models/${modelId}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&ui_title=0&ui_author=0&ui_hint=0&camera=0&preload=1&scrollwheel=0&dnt=1`;
 
   return (
     <div 
@@ -125,7 +128,7 @@ const HeroShoeViewer: React.FC = () => {
       }}
     >
       <iframe
-        title="3D Jordan 4 Bred"
+        title={title}
         src={iframeSrc}
         className="absolute left-[-40px] top-[-40px] w-[440px] h-[300px] md:left-[-75px] md:top-[-50px] md:w-[900px] md:h-[500px] border-0"
         style={{ background: 'transparent' }}
@@ -135,11 +138,53 @@ const HeroShoeViewer: React.FC = () => {
   );
 };
 
+const SHOE_MODELS = [
+  {
+    id: '0f9cd6cc050b499b8109a7277523e8f2',
+    name: 'AJ4 Bred',
+    line1: 'MOVE FASTER',
+    line2: 'THAN TOMORROW',
+  },
+  {
+    id: '4e8e2d7e10824b42b6b6680459c03823',
+    name: 'AJ1 Chicago',
+    line1: 'THE LEGEND',
+    line2: 'BEGINS HERE',
+  },
+  {
+    id: '859e7146524949a997235b23e2154564',
+    name: 'Yeezy 350',
+    line1: 'LIMITLESS STYLE',
+    line2: '& COMFORT',
+  },
+  {
+    id: '441c80b7218342419c80d85915751d38',
+    name: 'Travis Scott',
+    line1: 'REDEFINE THE',
+    line2: 'CLASSICS',
+  },
+  {
+    id: 'a58a5d2e33f34583b4c107f9038d82d4',
+    name: 'Air Max 90',
+    line1: 'MAXIMUM AIR',
+    line2: 'MAXIMUM PACE',
+  },
+  {
+    id: '6677f523c10a4305886369239d675691',
+    name: 'Air Force 1',
+    line1: 'COURT CLASSIC',
+    line2: 'STREET LEGEND',
+  }
+];
+
 
 // ----------------------------------------------------
 // Main Home Page Component
 // ----------------------------------------------------
 export const Home: React.FC = () => {
+  const [activeShoeIndex, setActiveShoeIndex] = React.useState(0);
+  const activeShoe = SHOE_MODELS[activeShoeIndex];
+
   // Fetch Categories
   const { data: categories = [] } = useQuery<any[]>({
     queryKey: ['categories'],
@@ -201,16 +246,31 @@ export const Home: React.FC = () => {
           <div className="flex flex-col items-center">
             
             {/* Display Header */}
-            <h1 className="font-sans font-black text-6xl md:text-[100px] leading-[0.9] tracking-tighter text-white max-w-5xl uppercase animate-fade-in">
-              MOVE FASTER <br className="hidden md:block"/> THAN TOMORROW
+            <h1 className="font-sans font-black text-5xl md:text-[85px] leading-[0.95] tracking-tighter text-white max-w-5xl uppercase animate-fade-in min-h-[110px] md:min-h-[170px] select-none">
+              {activeShoe.line1} <br className="hidden md:block"/> {activeShoe.line2}
             </h1>
 
             {/* 3D Canvas container */}
             <div className="w-[360px] h-[220px] md:w-[750px] md:h-[400px] relative mt-[-20px] mb-[-10px] animate-float flex items-center justify-center">
-              <HeroShoeViewer />
+              <HeroShoeViewer modelId={activeShoe.id} title={activeShoe.name} />
             </div>
 
-
+            {/* Premium Shoe Switcher Tabs */}
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4 z-20 relative px-4 py-2.5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 max-w-2xl mx-auto shadow-2xl">
+              {SHOE_MODELS.map((shoe, idx) => (
+                <button
+                  key={shoe.id}
+                  onClick={() => setActiveShoeIndex(idx)}
+                  className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
+                    activeShoeIndex === idx
+                      ? 'bg-pulse-red text-white scale-105 shadow-[0_0_20px_rgba(255,59,48,0.4)]'
+                      : 'text-platinum-gray hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {shoe.name}
+                </button>
+              ))}
+            </div>
 
           </div>
         </div>
