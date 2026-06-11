@@ -136,12 +136,18 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // ==========================================
-// SERVER START (local dev only — Vercel handles its own listener)
+// SERVER START
 // ==========================================
-if (process.env.NODE_ENV !== 'production') {
+// Start the HTTP server when run directly (local dev + Render production).
+// When imported as a module (Vercel serverless), the listener is NOT started.
+const isMainModule =
+  typeof require !== 'undefined' && require.main === module;
+const isDirectRun = process.env.RENDER === 'true' || isMainModule || process.argv[1]?.includes('index');
+
+if (isDirectRun) {
   const server = http.createServer(app);
 
-  // Only import socket service in local mode (WebSockets not supported on Vercel)
+  // Initialize WebSockets (supported on Render and local dev, not on Vercel)
   import('./services/socket.service').then(({ socketService }) => {
     socketService.initialize(server);
   });
