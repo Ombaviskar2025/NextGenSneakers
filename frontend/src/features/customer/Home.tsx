@@ -174,6 +174,12 @@ const SHOE_MODELS = [
     name: 'AirForce',
     line1: 'ELEVATE YOUR',
     line2: 'STRIDE',
+  },
+  {
+    id: 'ab3f0008870f4469a911e1878929d1fd',
+    name: 'Air Jordan 4',
+    line1: 'MOVE FASTER',
+    line2: 'THAN TOMORROW',
   }
 ];
 
