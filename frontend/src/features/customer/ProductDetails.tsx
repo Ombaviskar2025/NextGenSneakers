@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { api } from '../../services/api';
+import { ModelPreloader } from '../../services/ModelPreloader';
+import { ShoeViewerWithPlaceholder } from '../../components/ShoeViewerWithPlaceholder';
 import type { RootState } from '../../store';
 import type { Product } from '../../types';
 import toast from 'react-hot-toast';
@@ -513,6 +515,9 @@ export const ProductDetails: React.FC = () => {
             </button>
             <button
               onClick={() => setViewMode('3d')}
+              onMouseEnter={() => {
+                if (metadata) ModelPreloader.preloadModel(metadata.modelId);
+              }}
               className={`px-4 py-2 text-xs font-bold uppercase rounded-lg transition-all flex items-center gap-1.5 ${
                 viewMode === '3d' 
                   ? 'bg-pulse-red text-white shadow-md' 
@@ -559,14 +564,14 @@ export const ProductDetails: React.FC = () => {
               </div>
             </div>
           ) : (
-            /* Sketchfab 3D Embed */
+            /* Sketchfab 3D Embed — placeholder crossfade, no loading text */
             <div className="aspect-square rounded-3xl bg-[#000] border border-white/10 overflow-hidden relative shadow-2xl">
-              <iframe
+              <ShoeViewerWithPlaceholder
+                modelId={metadata.modelId}
                 title={product.name}
-                src={`https://sketchfab.com/models/${metadata.modelId}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=1&ui_infos=0&ui_stop=0&ui_watermark=0&camera=0&preload=1`}
-                className="w-full h-full border-0"
-                style={{ background: 'transparent' }}
-                allow="autoplay; fullscreen; xr-spatial-tracking"
+                placeholderSrc={selectedImage || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600'}
+                className="w-full h-full"
+                extraParams="ui_controls=1"
               />
             </div>
           )}

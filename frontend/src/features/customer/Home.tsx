@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowRight, Trophy, Flame, Zap, Activity, ShieldCheck, Truck, RefreshCw, Sparkles, Plus } from 'lucide-react';
 import { api } from '../../services/api';
+import { ModelPreloader } from '../../services/ModelPreloader';
+import { ShoeViewerWithPlaceholder } from '../../components/ShoeViewerWithPlaceholder';
 import type { Product } from '../../types';
 
 
@@ -108,35 +110,9 @@ const WebGLBackground: React.FC = () => {
 };
 
 // ----------------------------------------------------
-// Sketchfab 3D Shoe Viewer Embed
-// Uses dynamic model IDs loaded from Sketchfab
+// Sketchfab 3D Shoe Viewer — now uses preloaded placeholder
+// with smooth crossfade transition to interactive 3D model
 // ----------------------------------------------------
-interface HeroShoeViewerProps {
-  modelId: string;
-  title: string;
-}
-
-const HeroShoeViewer: React.FC<HeroShoeViewerProps> = ({ modelId, title }) => {
-  const iframeSrc = `https://sketchfab.com/models/${modelId}/embed?autostart=1&transparent=1&ui_theme=dark&ui_controls=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0&ui_title=0&ui_author=0&ui_hint=0&camera=0&preload=1&scrollwheel=0&dnt=1&max_texture_size=1024&graph_optimizer=1`;
-
-  return (
-    <div 
-      className="w-full h-full relative overflow-hidden"
-      style={{
-        maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
-        WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
-      }}
-    >
-      <iframe
-        title={title}
-        src={iframeSrc}
-        className="absolute left-[-40px] top-[-40px] w-[440px] h-[300px] md:left-[-75px] md:top-[-50px] md:w-[900px] md:h-[500px] border-0"
-        style={{ background: 'transparent' }}
-        allow="autoplay; fullscreen; xr-spatial-tracking"
-      />
-    </div>
-  );
-};
 
 const SHOE_MODELS = [
   {
@@ -190,6 +166,14 @@ const SHOE_MODELS = [
 export const Home: React.FC = () => {
   const [activeShoeIndex, setActiveShoeIndex] = React.useState(0);
   const activeShoe = SHOE_MODELS[activeShoeIndex];
+
+  // Preload first 2 Sketchfab models on mount for instant hero display
+  useEffect(() => {
+    ModelPreloader.preloadBatch(
+      SHOE_MODELS.map((s) => s.id),
+      2
+    );
+  }, []);
 
   // Fetch Categories
   const { data: categories = [] } = useQuery<any[]>({
@@ -256,9 +240,19 @@ export const Home: React.FC = () => {
               {activeShoe.line1} <br className="hidden md:block"/> {activeShoe.line2}
             </h1>
 
-            {/* 3D Canvas container */}
+            {/* 3D Canvas container — shows placeholder instantly, crossfades to live 3D */}
             <div className="w-[360px] h-[220px] md:w-[750px] md:h-[400px] relative mt-[-20px] mb-[-10px] animate-float flex items-center justify-center">
-              <HeroShoeViewer modelId={activeShoe.id} title={activeShoe.name} />
+              <ShoeViewerWithPlaceholder
+                modelId={activeShoe.id}
+                title={activeShoe.name}
+                placeholderSrc="/hero-shoe.png"
+                className="w-full h-full"
+                maskStyle={{
+                  maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
+                }}
+                iframeClassName="absolute left-[-40px] top-[-40px] !w-[440px] !h-[300px] md:left-[-75px] md:top-[-50px] md:!w-[900px] md:!h-[500px]"
+              />
             </div>
 
             {/* Premium Shoe Switcher Tabs */}
@@ -267,6 +261,7 @@ export const Home: React.FC = () => {
                 <button
                   key={shoe.id}
                   onClick={() => setActiveShoeIndex(idx)}
+                  onMouseEnter={() => ModelPreloader.preloadModel(shoe.id)}
                   className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${
                     activeShoeIndex === idx
                       ? 'bg-pulse-red text-white scale-105 shadow-[0_0_20px_rgba(255,59,48,0.4)]'

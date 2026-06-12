@@ -8,6 +8,18 @@
     <meta name="keywords" content="e-commerce, multi-vendor, marketplace, electronics, handmade, shop, buy, sell" />
     <meta name="author" content="AIRVERSE Inc." />
     <title>AIRVERSE | Multi-Vendor E-Commerce Platform</title>
+
+    <!-- 3D Performance: DNS preconnect for Sketchfab embeds -->
+    <link rel="preconnect" href="https://sketchfab.com" crossorigin />
+    <link rel="preconnect" href="https://static.sketchfab.com" crossorigin />
+    <link rel="dns-prefetch" href="https://sketchfab.com" />
+    <link rel="dns-prefetch" href="https://static.sketchfab.com" />
+
+    <!-- 3D Performance: Preload hero placeholder for instant display -->
+    <link rel="preload" href="/hero-shoe.png" as="image" />
+
+    <!-- 3D Performance: Prefetch GLB model for Innovation page -->
+    <link rel="prefetch" href="/models/shoe.glb" as="fetch" crossorigin />
   </head>
   <body class="transition-colors duration-300">
     <div id="root"></div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { Cpu, Zap, Activity, ShieldCheck, Award, Star, ArrowRight, ChevronDown } from 'lucide-react';
 
 interface FeatureCallout {
@@ -44,6 +45,7 @@ export const Innovation: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scrollPercent, setScrollPercent] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [loadProgress, setLoadProgress] = useState<number>(0);
   const [loadError, setLoadError] = useState<boolean>(false);
   const [activeTestimonial, setActiveTestimonial] = useState<number>(0);
 
@@ -117,7 +119,7 @@ export const Innovation: React.FC = () => {
       powerPreference: "high-performance"
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap at 1.5 for mobile perf
     renderer.shadowMap.enabled = true;
 
     // 4. Lights
@@ -183,8 +185,17 @@ export const Innovation: React.FC = () => {
       setIsLoading(false);
     };
 
-    // Load GLTF shoe model
+    // Enable Three.js built-in cache for GLB reuse across navigations
+    THREE.Cache.enabled = true;
+
+    // Load GLTF shoe model with DRACOLoader for compressed meshes
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
+    dracoLoader.setDecoderConfig({ type: 'js' }); // JS decoder for broadest compatibility
+
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
+
     loader.load(
       '/models/shoe.glb',
       (gltf) => {
@@ -243,7 +254,12 @@ export const Innovation: React.FC = () => {
         shoeRoot = model;
         setIsLoading(false);
       },
-      undefined,
+      (progress) => {
+        // Track loading progress for the progress bar
+        if (progress.total > 0) {
+          setLoadProgress(Math.round((progress.loaded / progress.total) * 100));
+        }
+      },
       (err) => {
         console.error('Failed to load shoe GLTF model. Rendering wireframe fallback.', err);
         setLoadError(true);
@@ -338,6 +354,20 @@ export const Innovation: React.FC = () => {
     return () => {
       cancelAnimationFrame(reqId);
       window.removeEventListener('mousemove', handleMouseMove);
+      // Dispose Three.js resources to prevent memory leaks
+      renderer.dispose();
+      dracoLoader.dispose();
+      scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).isMesh) {
+          const mesh = obj as THREE.Mesh;
+          mesh.geometry.dispose();
+          if (Array.isArray(mesh.material)) {
+            mesh.material.forEach((m) => m.dispose());
+          } else if (mesh.material) {
+            mesh.material.dispose();
+          }
+        }
+      });
     };
   }, []);
 
@@ -366,11 +396,21 @@ export const Innovation: React.FC = () => {
         </div>
       </div>
 
-      {/* Loading Overlay */}
+      {/* Loading — Subtle inline progress bar instead of full-screen blocking overlay */}
       {isLoading && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0d0d0d] transition-opacity duration-300">
-          <div className="w-12 h-12 border-4 border-pulse-red border-t-transparent rounded-full animate-spin mb-4" />
-          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/50">INITIALIZING 3D ENGINE...</span>
+        <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+          {/* Background progress bar */}
+          <div className="h-1 bg-white/5 w-full">
+            <div 
+              className="h-full bg-gradient-to-r from-pulse-red to-red-400 transition-all duration-300 ease-out"
+              style={{ width: `${loadProgress}%` }}
+            />
+          </div>
+          {/* Subtle center spinner (non-blocking — content is visible behind it) */}
+          <div className="fixed bottom-8 right-8 flex items-center gap-3 bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/10 shadow-2xl">
+            <div className="w-4 h-4 border-2 border-pulse-red border-t-transparent rounded-full animate-spin" />
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/50">{loadProgress}%</span>
+          </div>
         </div>
       )}
 
